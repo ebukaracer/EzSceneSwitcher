@@ -1,0 +1,23 @@
+{
+  "name": "com.racer.ezsceneswitcher",
+  "displayName": "EzSceneSwitcher",
+  "version": "1.0.0",
+  "unity": "2021.3",
+  "description": "Provides a handy overlay window for quickly and ezly switching between scenes in the editor.",
+  "documentationUrl": "https://ebukaracer.github.io/EzSceneSwitcher",
+  "licensesUrl": "https://ebukaracer.github.io/ebukaracer/md/LICENSE.html",
+  "changelogUrl": "https://github.com/ebukaracer/EzSceneSwitcher/tags",
+  "author": {
+    "name": "Racer",
+    "url": "https://github.com/ebukaracer"
+  },
+  "category": "Tools",
+  "keywords": [
+    "editor",
+    "unity-package",
+    "package",
+    "tool",
+    "scene",
+    "scene-switch"
+  ]
+}
