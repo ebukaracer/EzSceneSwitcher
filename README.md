@@ -2,6 +2,8 @@
 
 **EzSceneSwitcher** is a handy **Unity Editor utility** that simplifies scene navigation. It provides an **editor overlay** with a **drop-down menu** listing all scenes and two quick-action buttons for seamless scene switching.
 
+![gif](https://raw.githubusercontent.com/ebukaracer/ebukaracer/unlisted/EzSceneSwitcher-Images/Preview.gif)
+
 ## ✨ Features
 - 📜 **Drop-down menu** – Lists all available scenes in the project.
 - 🔄 **Toggle Scene Button** – Opens/closes the selected scene.
