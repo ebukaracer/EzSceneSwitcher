@@ -1,7 +1,7 @@
 {
   "name": "com.racer.ezsceneswitcher",
   "displayName": "EzSceneSwitcher",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "unity": "2021.3",
   "description": "Provides a handy overlay window for quickly and ezly switching between scenes in the editor.",
   "documentationUrl": "https://ebukaracer.github.io/EzSceneSwitcher",

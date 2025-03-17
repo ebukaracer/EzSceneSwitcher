@@ -4,22 +4,23 @@ using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Racer.EzSceneSwitcher.Editor
 {
     internal static class Constants
     {
         public const string ContextMenuPath = "Racer/EzSceneSwitcher/";
-
-        public const string DisplayName = "Scene Switcher";
-        public const string OverlayID = "scene-switcher";
         public const string DropdownID = OverlayID + "/scenes-dropdown";
 
-        public const string SceneIconId = "d_SceneAsset Icon";
+        public const string DisplayName = "Ez Scene Switcher";
+        public const string OverlayID = "scene-switcher";
+        public const string Tooltip = "Ezly switch to another scene here.";
 
-        // public const string RefreshIconId = "d_Refresh";
-        public const string PingIconId = "d_Grid.Default";
-        public const string Tooltip = "Ezly Switch to another Scene here ;)";
+        public const string SceneIconId = "d_SceneAsset Icon";
+        public const string PingIconId = "d_Animation.FilterBySelection";
+        public const string ActiveIconId = "d_winbtn_mac_max_a";
+        public const string CloseIconId = "d_winbtn_mac_close_a";
     }
 
 
@@ -30,11 +31,39 @@ namespace Racer.EzSceneSwitcher.Editor
 
         public static readonly List<string> ScenePaths = new();
 
+        public static readonly List<OpenSceneMode> OpenSceneModes = new()
+        {
+            OpenSceneMode.Single,
+            OpenSceneMode.Additive,
+            OpenSceneMode.AdditiveWithoutLoading,
+        };
+
+        public static OpenSceneMode OpenSceneMode { get; set; }
+        public static (string, string) SelectedSceneData { get; set; }
+
+
+        public static Scene GetActiveScene()
+        {
+            var activeScene = SceneManager.GetActiveScene();
+            return activeScene;
+        }
 
         public static void OpenScene(string scenePath)
         {
             if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
-                EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+                EditorSceneManager.OpenScene(scenePath, OpenSceneMode);
+        }
+
+        public static void ActivateScene(string scenePath)
+        {
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                SceneManager.SetActiveScene(SceneManager.GetSceneByPath(scenePath));
+        }
+
+        public static void UnloadScene(string scenePath)
+        {
+            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                EditorSceneManager.CloseScene(SceneManager.GetSceneByPath(scenePath), true);
         }
 
         public static void LoadScenes()
@@ -68,7 +97,8 @@ namespace Racer.EzSceneSwitcher.Editor
 
             if (!lastActiveSceneView.hasFocus)
             {
-                Debug.LogWarning("An active Scene View window must be open, in order to toggle the Scene Switcher Overlay.");
+                Debug.LogWarning(
+                    "An active Scene View window must be open, in order to toggle the Scene Switcher Overlay.");
                 return;
             }
 
@@ -101,14 +131,16 @@ namespace Racer.EzSceneSwitcher.Editor
 
     internal static class Styles
     {
-        public static readonly GUIContent SwitchToSceneBtn = new("Switch", "Switches to the Selected Scene");
+        public static readonly GUIContent SwitchToSceneBtn = new("Switch", "Switches to the selected scene by mode");
+
+        public static readonly GUIContent CloseSceneBtn =
+            new(EditorGUIUtility.IconContent(Constants.CloseIconId,
+                "|Closes the selected scene that is either additively loaded or unloaded"));
+
+        public static readonly GUIContent ActiveSceneBtn =
+            new(EditorGUIUtility.IconContent(Constants.ActiveIconId, "|Sets the selected scene active, if its loaded"));
 
         public static readonly GUIContent PingSceneBtn =
-            new(EditorGUIUtility.IconContent(Constants.PingIconId, "|Pings to the Selected Scene"));
-
-        /*
-        public static readonly GUIContent RefreshSceneBtn =
-            new(EditorGUIUtility.IconContent(Constants.RefreshIconId, "Refresh list"));
-            */
+            new(EditorGUIUtility.IconContent(Constants.PingIconId, "|Highlights the location of the selected scene"));
     }
 }
