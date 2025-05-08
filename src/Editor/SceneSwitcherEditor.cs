@@ -120,7 +120,7 @@ namespace Racer.EzSceneSwitcher.Editor
             switch (_removeRequest.Status)
             {
                 case >= StatusCode.Failure:
-                    Debug.LogWarning($"Failed to remove package: '{PkgId}'\n{_removeRequest.Error.message}");
+                    Debug.LogError($"Failed to remove package: '{PkgId}'\n{_removeRequest.Error.message}");
                     break;
             }
 
